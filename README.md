@@ -1,7 +1,7 @@
 # Identifying Transcriptional Differences in Lung Cancer
 20.440 Project (Cora Wendlandt and Rachel McGinn)
 
-![Annotated Volcano Plot](https://github.com/CoraWendlandt/SexTranscriptionLungCancer/blob/b2dec01dfda711e27f2c9d2e704c3858526467b1/figures/annotated_volcano.png)
+![Annotated Volcano Plot](https://github.com/CoraWendlandt/SexTranscriptionLungCancer/blob/1bd106da799adb20fd20d36f7fd25f1fb730a2d2/figures/ALLannotated_volcano.png)
 
 To redo the creation of the figure, run volcano.py and then annotated_volcano.py. If you do not care about recreating the data parsing and just want the plot, run annotated_volcano.py only.
 ## Overview
