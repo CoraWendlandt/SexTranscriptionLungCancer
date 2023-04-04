@@ -5,12 +5,13 @@ import numpy as np
 
 #USER
 # run from home directory
-#	python code/annotated_volcano.py data/ALLcombined.csv
+#	python code/annotated_volcano.py data/ALLcombined.csv ALL
 
 # work inspired from: https://hemtools.readthedocs.io/en/latest/content/Bioinformatics_Core_Competencies/Volcanoplot.html
 
 # read in combined expression data
 combinedCSV = sys.argv[1]
+extraTitle = sys.argv[2]
 df = pd.read_csv(combinedCSV)
 
 # scatter everytime as nonspecific
@@ -30,7 +31,7 @@ plt.ylabel("-Log Adjusted p value")
 plt.axvline(-2,color="grey",linestyle="--")
 plt.axvline(2,color="grey",linestyle="--")
 plt.axhline(2,color="grey",linestyle="--")
-plt.title("Sex Differences in Lung Cancer")
+plt.title("Sex Differences in Lung Cancer "+extraTitle)
 plt.legend()
 
-plt.savefig('figures/annotated_volcano.png')
+plt.savefig('figures/'+extraTitle+'annotated_volcano.png')

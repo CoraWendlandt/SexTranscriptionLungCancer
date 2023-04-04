@@ -51,9 +51,7 @@ def get_avg_expression(root):
 femRoot = sys.argv[1]
 maleRoot = sys.argv[2]
 
-extraTitle = ''
-if len(sys.argv) == 4:
-	extraTitle = str(sys.argv[3])
+extraTitle = str(sys.argv[3])
 
 femGenes, femVals, femttest = get_avg_expression(femRoot)
 np.savetxt('data/'+extraTitle+'fem_collected_expression.csv', femttest,  delimiter=',')
@@ -103,5 +101,5 @@ combinedDf.to_csv('data/'+extraTitle+'combined.csv')
 plt.scatter(x=combinedDf['Log Fold Change'],y=combinedDf['Adjusted P Value'].apply(lambda x:-np.log10(x)),s=1)
 plt.xlabel("Log Fold Changes")
 plt.ylabel("-Log Adjusted p value")
-plt.title('Sex Differences in Lung Cancer'+extraTitle)
+plt.title('Sex Differences in Lung Cancer '+extraTitle)
 plt.savefig('figures/'+extraTitle+'SexLungVolcano.png')
