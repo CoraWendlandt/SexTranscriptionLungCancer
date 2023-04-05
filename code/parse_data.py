@@ -9,9 +9,9 @@ import math
 
 #USER (*make sure to unzip the tar files b/c only the compressed ones fit on git)
 # run from home directory
-#	python code/parse_data.py data/ALL_FEMALE_TUMOR/ data/ALL_MALE_TUMOR/ ALL
+#	python code/parse_data.py data/ALL_FEMALE_TUMOR/ data/ALL_MALE_TUMOR/ ALL_TUMOR
 # OR if running separated data
-#	python code/parse_data.py data/CPTAC3_FEMALE_TUMOR/ data/CPTAC3_MALE_TUMOR/ CPTAC3
+#	python code/parse_data.py data/CPTAC3_FEMALE_TUMOR/ data/CPTAC3_MALE_TUMOR/ CPTAC3_TUMOR
 # expect about 6ish min to run
 
 def get_avg_expression(root):
@@ -54,9 +54,9 @@ maleRoot = sys.argv[2]
 extraTitle = str(sys.argv[3])
 
 femGenes, femVals, femttest = get_avg_expression(femRoot)
-np.savetxt('data/'+extraTitle+'fem_collected_expression.csv', femttest,  delimiter=',')
+np.savetxt('data/'+extraTitle+'_fem_collected_expression.csv', femttest,  delimiter=',')
 maleGenes, maleVals, malettest = get_avg_expression(maleRoot)
-np.savetxt('data/'+extraTitle+'male_collected_expression.csv', malettest,  delimiter=',')
+np.savetxt('data/'+extraTitle+'_male_collected_expression.csv', malettest,  delimiter=',')
 
 if femGenes != maleGenes:
 	# make sure they have the same genes
@@ -95,11 +95,11 @@ adjPvals = [x * len(pvals) for x in pvals]
 # collect and save all the data
 combinedDf = pd.DataFrame(list(zip(femVals, maleVals, logFoldChanges, tvals, pvals, adjPvals)),
                index = femGenes, columns =['Female', 'Male', 'Log Fold Change', 't statistic', 'P Value', 'Adjusted P Value'])
-combinedDf.to_csv('data/'+extraTitle+'combined.csv')
+combinedDf.to_csv('data/'+extraTitle+'_combined.csv')
 
 # volcano plot of changes from female to male
 plt.scatter(x=combinedDf['Log Fold Change'],y=combinedDf['Adjusted P Value'].apply(lambda x:-np.log10(x)),s=1)
 plt.xlabel("Log Fold Changes")
 plt.ylabel("-Log Adjusted p value")
 plt.title('Sex Differences in Lung Cancer '+extraTitle)
-plt.savefig('figures/'+extraTitle+'SexLungVolcano.png')
+plt.savefig('figures/'+extraTitle+'_SexLungVolcano.png')

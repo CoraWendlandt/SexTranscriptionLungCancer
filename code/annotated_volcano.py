@@ -5,7 +5,7 @@ import numpy as np
 
 #USER
 # run from home directory
-#	python code/annotated_volcano.py data/ALLcombined.csv ALL
+#	python code/annotated_volcano.py data/ALL_TUMOR_combined.csv ALL_TUMOR
 
 # work inspired from: https://hemtools.readthedocs.io/en/latest/content/Bioinformatics_Core_Competencies/Volcanoplot.html
 
@@ -34,4 +34,4 @@ plt.axhline(2,color="grey",linestyle="--")
 plt.title("Sex Differences in Lung Cancer "+extraTitle)
 plt.legend()
 
-plt.savefig('figures/'+extraTitle+'annotated_volcano.png')
+plt.savefig('figures/'+extraTitle+'_annotated_volcano.png')
