@@ -14,6 +14,7 @@ combinedCSV = sys.argv[1]
 extraTitle = sys.argv[2]
 df = pd.read_csv(combinedCSV)
 df = df.set_index(df.columns[0])
+df.index.name = 'gene_name'
 
 # scatter everytime as nonspecific
 plt.scatter(x=df['Log Fold Change'],y=df['Adjusted P Value'].apply(lambda x:-np.log10(x)),s=1,label="Not significant")
@@ -21,6 +22,9 @@ plt.scatter(x=df['Log Fold Change'],y=df['Adjusted P Value'].apply(lambda x:-np.
 # highlight down- and up- regulated genes
 down = df[(df['Log Fold Change']<=-2)&(df['Adjusted P Value']<=0.01)]
 up = df[(df['Log Fold Change']>=2)&(df['Adjusted P Value']<=0.01)]
+down.to_csv('data/'+extraTitle+'_down.csv')
+up.to_csv('data/'+extraTitle+'_up.csv')
+
 
 # plot down- and up- regulated genes
 plt.scatter(x=down['Log Fold Change'],y=down['Adjusted P Value'].apply(lambda x:-np.log10(x)),s=3,label="Down-regulated",color="blue")

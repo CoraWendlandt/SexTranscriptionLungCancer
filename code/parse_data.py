@@ -97,9 +97,11 @@ combinedDf = pd.DataFrame(list(zip(femVals, maleVals, logFoldChanges, tvals, pva
                index = femGenes, columns =['Female', 'Male', 'Log Fold Change', 't statistic', 'P Value', 'Adjusted P Value'])
 combinedDf.to_csv('data/'+extraTitle+'_combined.csv')
 
+"""
 # volcano plot of changes from female to male
 plt.scatter(x=combinedDf['Log Fold Change'],y=combinedDf['Adjusted P Value'].apply(lambda x:-np.log10(x)),s=1)
 plt.xlabel("Log Fold Changes")
 plt.ylabel("-Log Adjusted p value")
 plt.title('Sex Differences in Lung Cancer '+extraTitle)
 plt.savefig('figures/'+extraTitle+'_SexLungVolcano.png')
+"""
