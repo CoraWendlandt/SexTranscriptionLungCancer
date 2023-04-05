@@ -13,6 +13,7 @@ import numpy as np
 combinedCSV = sys.argv[1]
 extraTitle = sys.argv[2]
 df = pd.read_csv(combinedCSV)
+df = df.set_index(df.columns[0])
 
 # scatter everytime as nonspecific
 plt.scatter(x=df['Log Fold Change'],y=df['Adjusted P Value'].apply(lambda x:-np.log10(x)),s=1,label="Not significant")
@@ -24,6 +25,11 @@ up = df[(df['Log Fold Change']>=2)&(df['Adjusted P Value']<=0.01)]
 # plot down- and up- regulated genes
 plt.scatter(x=down['Log Fold Change'],y=down['Adjusted P Value'].apply(lambda x:-np.log10(x)),s=3,label="Down-regulated",color="blue")
 plt.scatter(x=up['Log Fold Change'],y=up['Adjusted P Value'].apply(lambda x:-np.log10(x)),s=3,label="Up-regulated",color="red")
+
+for i,r in up.iterrows():
+	plt.text(x=r['Log Fold Change'],y=-np.log10(r['Adjusted P Value']),s=i,fontsize=8)
+for i,r in down.iterrows():
+	plt.text(x=r['Log Fold Change'],y=-np.log10(r['Adjusted P Value']),s=i,fontsize=8)
 
 # label plot
 plt.xlabel("Log Fold Change")
