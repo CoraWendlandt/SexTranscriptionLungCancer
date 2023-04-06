@@ -1,6 +1,8 @@
 import pandas as pd
+import numpy as np
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
+from sklearn.manifold import TSNE
 import matplotlib.pyplot as plt
 import sys
 
@@ -49,13 +51,27 @@ principalDf = pd.DataFrame(data = principalComponents
              , columns = pcColumns)
 
 finalDf = pd.concat([principalDf, combined_df[['Label']]], axis = 1)
+finalDf.to_csv('data/'+proj+'_'+str(n_components)+'PC.csv')
+explained_variance = pca.explained_variance_ratio_
 
-# plot
+# plot variance
+explained_variance_plot = [0]
+for i in explained_variance:
+	explained_variance_plot.append(i+explained_variance_plot[-1])
+explained_variance_plot = explained_variance_plot[1:]
+
+plt.plot(np.linspace(1,n_components,n_components),explained_variance_plot)
+plt.xlabel('Number of Compontents')
+plt.ylabel('Explained Variance')
+plt.title('Explained Variance Plot')
+plt.savefig('figures/'+proj+'_PC_explained_variance.png')
+
+# plot PCA
 fig = plt.figure(figsize = (8,8))
 ax = fig.add_subplot(1,1,1) 
-ax.set_xlabel('PC1', fontsize = 15)
-ax.set_ylabel('PC2', fontsize = 15)
-ax.set_title('2 component PCA', fontsize = 20)
+ax.set_xlabel('PC1 (explained variance: '+str(round(explained_variance[0],2))+')', fontsize = 15)
+ax.set_ylabel('PC2 (explained variance: '+str(round(explained_variance[1],2))+')', fontsize = 15)
+ax.set_title(str(n_components)+' component PCA', fontsize = 20)
 
 targets = ['FEMALE_TUMOR','FEMALE_NORMAL','MALE_TUMOR','MALE_NORMAL']
 colors = ['r', 'g', 'b','y']
@@ -69,3 +85,24 @@ ax.legend(targets)
 ax.grid()
 
 plt.savefig('figures/'+proj+'_PCA.png')
+
+# plot tSNE on PCA
+tsne = TSNE(n_components=2, verbose=1, perplexity=40, n_iter=300)
+tsne_results = tsne.fit_transform(principalDf)
+
+fig = plt.figure(figsize = (8,8))
+ax = fig.add_subplot(1,1,1) 
+ax.set_xlabel('tSNE 1', fontsize = 15)
+ax.set_ylabel('tSNE 2', fontsize = 15)
+ax.set_title('tSNE of '+str(n_components)+' component PCA', fontsize = 20)
+for target, color in zip(targets,colors):
+    indicesToKeep = finalDf['Label'] == target
+    ax.scatter(tsne_results[indicesToKeep, 0]
+               , tsne_results[indicesToKeep, 1]
+               , c = color
+               , s = 50)
+ax.legend(targets)
+ax.grid()
+
+plt.savefig('figures/'+proj+'_tSNE_PCA.png')
+
