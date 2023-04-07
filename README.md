@@ -3,7 +3,7 @@
 
 ![Annotated Volcano Plot](https://github.com/CoraWendlandt/SexTranscriptionLungCancer/blob/1541ead6476bc6acc0a0e08a3057660619181cd5/figures/ALL_TUMOR_annotated_volcano.png)
 
-To redo the creation of the figure, run volcano.py and then annotated_volcano.py.
+To recreate the figure, run volcano.py and then annotated_volcano.py.
 ## Overview
 Lung cancer affects people from a variety of backgrounds, but research has suggested that incidence and outcomes differ on the basis of sex. Specifically, [Stabellini et al. (2022)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8983352/) found that males have a higher incidence of lung cancer and that female sex was associated with higher surgical rates, lower immunotherapy use rates, higher rates of endocrinologic complications after immunotherapy use, and higher rates of psychological disorders. Accordingly, here we explore transcriptional differences in male and female lung cancer samples hoping to answer the following:
 ### What (if any) are the expression differences in genes for male versus female lung cancer patients?
