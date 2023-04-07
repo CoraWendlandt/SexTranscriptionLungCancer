@@ -63,7 +63,7 @@ explained_variance_plot = explained_variance_plot[1:]
 plt.plot(np.linspace(1,n_components,n_components),explained_variance_plot)
 plt.xlabel('Number of Compontents')
 plt.ylabel('Explained Variance')
-plt.title('Explained Variance Plot')
+plt.title('Explained Variance '+proj)
 plt.savefig('figures/'+proj+'_PC_explained_variance.png')
 
 # plot PCA
@@ -71,7 +71,7 @@ fig = plt.figure(figsize = (8,8))
 ax = fig.add_subplot(1,1,1) 
 ax.set_xlabel('PC1 (explained variance: '+str(round(explained_variance[0],2))+')', fontsize = 15)
 ax.set_ylabel('PC2 (explained variance: '+str(round(explained_variance[1],2))+')', fontsize = 15)
-ax.set_title(str(n_components)+' component PCA', fontsize = 20)
+ax.set_title(str(n_components)+' component PCA '+proj, fontsize = 20)
 
 targets = ['FEMALE_TUMOR','FEMALE_NORMAL','MALE_TUMOR','MALE_NORMAL']
 colors = ['r', 'g', 'b','y']
@@ -94,7 +94,7 @@ fig = plt.figure(figsize = (8,8))
 ax = fig.add_subplot(1,1,1) 
 ax.set_xlabel('tSNE 1', fontsize = 15)
 ax.set_ylabel('tSNE 2', fontsize = 15)
-ax.set_title('tSNE of '+str(n_components)+' component PCA', fontsize = 20)
+ax.set_title('tSNE of '+str(n_components)+' component PCA '+proj, fontsize = 20)
 for target, color in zip(targets,colors):
     indicesToKeep = finalDf['Label'] == target
     ax.scatter(tsne_results[indicesToKeep, 0]
